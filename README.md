@@ -47,7 +47,7 @@ This eliminates:
 When a user updates any field (phone, email, address, social links, websites, metadata), all participants with consent automatically receive updates. No manual sync, no conflicts.
 
 ```mermaid
-graph LR
+flowchart LR
     A[User Updates Phone] --> B[App Validates Change]
     B --> C{Check Permissions}
     C -->|Family Group| D[Propagate to Family]
@@ -62,14 +62,15 @@ graph LR
 Contacts are placed into groups (Close Friends, Family, Friends, Work, Grey Rock). Each group defines which fields are visible, hidden, or propagate.
 
 ```mermaid
-graph TD
+flowchart TD
     A[User Moves Contact] --> B{New Group?}
     B -->|Less visibility| C[Deny field visibility]
-    B -->|More visibility| D[Allow field visiblitiy]
-
+    B -->|More visibility| D[Allow field visibility]
+    C --> E[Fields Hidden]
+    D --> F[Fields Visible]
 ```
 
-When moved to **`**Grey Rock**`**, some field visibility is revoked.
+When moved to **Grey Rock**, some field visibility is revoked.
 
 ## Field-Level Permissions
 
@@ -123,6 +124,69 @@ Direction:
   - Duplicates collapse
   - Canonical card dominates
   - Old entries become inert or deprecated
+
+## Proof of Ownership
+
+When you claim your identity, you must prove ownership per device. This prevents identity hijacking and Sybil attacks.
+
+**Verification Methods:**
+
+1. **SMS Verification** (Primary)
+   - Claim phone number → receive SMS code
+   - Proves you control that number
+   - Standard in banking, Signal, WhatsApp
+
+2. **Email Verification** (Work Contacts)
+   - Claim email → receive verification link
+   - Domain verification for corporate emails
+   - Proves organizational affiliation
+
+3. **OAuth Providers** (Optional)
+   - Google/Apple/Microsoft sign-in
+   - Leverages existing trust anchor
+   - User consents to identity assertion
+
+4. **Device Binding**
+   - First claim on device creates binding
+   - Subsequent devices require re-verification
+   - Prevents mass account creation
+
+**Trust Model:**
+
+```mermaid
+flowchart TD
+    A[User Claims Identity] --> B{Verification Method}
+    B -->|SMS| C[Send Code to Phone]
+    B -->|Email| D[Send Link to Email]
+    B -->|OAuth| E[Redirect to Provider]
+    C --> F{Code Correct?}
+    D --> G{Link Clicked?}
+    E --> H{Provider Confirms?}
+    F -->|Yes| I[Create Stable User ID]
+    F -->|No| J[Retry or Fail]
+    G -->|Yes| I
+    G -->|No| J
+    H -->|Yes| I
+    H -->|No| J
+    I --> K[Bind to Device]
+    K --> L[User Can Edit Own Card]
+```
+
+**Security Properties:**
+
+- **One identity per phone/email**: Rate limiting prevents Sybil attacks
+- **Device fingerprinting**: Detects mass account creation from single device
+- **Temporal analysis**: Creating many accounts rapidly = suspicious
+- **TOFU (Trust On First Use)**: First claimer wins, subsequent claims require conflict resolution
+
+**Conflict Resolution:**
+
+If two people claim the same identity:
+
+1. Both receive notification
+2. Mutual contacts can "vote" for the real person
+3. Majority vote wins (weighted by social graph centrality)
+4. Loser can appeal or provide additional verification
 
 ## Architecture: Centralized → Distributed
 
