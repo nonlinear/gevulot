@@ -88,11 +88,11 @@ Each field declares visibility rules (e.g., Phone → Family + Close Friends, Em
 
 > 🤖
 >
-> [CHANGELOG](docs/CHANGELOG.md) - What we did
-> [ROADMAP](docs/ROADMAP.md) - What we wanna do
-> [CONTRIBUTING](docs/CONTRIBUTING.md) - How we do it
-> [CHECKS](docs/CHECKS.md) - What we accept
->
-> [/whatsup](.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [README](README.md) - Our project
+> - [CHANGELOG](docs/CHANGELOG.md) - What we did
+> - [ROADMAP](docs/ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](docs/CONTRIBUTING.md) - How we do it
+> - [CHECKS](docs/CHECKS.md) - What we accept
+> - [/whatsup](.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
 > 🤖

@@ -4,6 +4,19 @@ Based on cybersecurity literature from personal library (Schneier, Anderson, Zub
 
 ---
 
+> 🤖
+>
+> - [README](../README.md) - What is Gevulot
+> - [CHANGELOG](CHANGELOG.md) - What we did
+> - [ROADMAP](ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) - How we do it
+> - [CHECKS](CHECKS.md) - What we accept
+> - [/whatsup](../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+>
+> 🤖
+
+---
+
 ## ⚠️ Personal Library MCP Issue
 
 The MCP server is returning errors (`r.content is not iterable`) when attempting queries. This may indicate the server needs to be restarted or there's an issue with the index for new topics (`cybersecurity_applied`, `cybersecurity_history`, `cybersecurity_strategy`).

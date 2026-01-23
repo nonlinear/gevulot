@@ -6,6 +6,19 @@ Cross-referenced with [README.md](../README.md) and [cybersecurity analysis.md](
 
 ---
 
+> 🤖
+>
+> - [README](../README.md) - What is Gevulot
+> - [CHANGELOG](CHANGELOG.md) - What we did
+> - [ROADMAP](ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) - How we do it
+> - [CHECKS](CHECKS.md) - What we accept
+> - [/whatsup](../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+>
+> 🤖
+
+---
+
 ## Executive Summary
 
 Gevulot's architecture presents a **classic distributed systems migration challenge**: starting centralized for MVP speed, then evolving to peer-to-peer for resilience and autonomy. This analysis examines the architectural decisions through the lens of data-intensive application design, focusing on:

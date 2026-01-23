@@ -111,12 +111,12 @@ echo "✅ All checks complete."
 
 > 🤖
 >
-> [CHANGELOG](CHANGELOG.md) - What we did
-> [ROADMAP](ROADMAP.md) - What we wanna do
-> [CONTRIBUTING](../.github/CONTRIBUTING.md) - How we do it
-> [CHECKS](CHECKS.md) - What we accept
->
-> [/whatsup](../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [README](../README.md) - What is Gevulot
+> - [CHANGELOG](CHANGELOG.md) - What we did
+> - [ROADMAP](ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) - How we do it
+> - [CHECKS](CHECKS.md) - What we accept
+> - [/whatsup](../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
 > 🤖
 
@@ -150,12 +150,12 @@ dart format --output=none --set-exit-if-changed .
 
 > 🤖
 >
-> See [ROADMAP](ROADMAP.md) for planned features & in-progress work
-> See [CHANGELOG](CHANGELOG.md) for version history & completed features
-> See [CHECKS](CHECKS.md) for stability requirements & testing
-> See [CONTRIBUTING](CONTRIBUTING.md) for development workflow
->
-> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
+> - [README](../README.md) - What is Gevulot
+> - [CHANGELOG](CHANGELOG.md) - What we did
+> - [ROADMAP](ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) - How we do it
+> - [CHECKS](CHECKS.md) - What we accept
+> - [/whatsup](../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
 > 🤖
 

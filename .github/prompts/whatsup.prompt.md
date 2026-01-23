@@ -1,10 +1,14 @@
 # What's Up? (Project Status Check)
 
-**Purpose:** Universal pre-commit workflow ensuring documentation-code parity and stability.
+> **Universal pre-commit workflow for AI-assisted development.** Ensures documentation matches reality before every push.
+
+**Purpose:** Validate stability, sync docs, determine next steps.
 
 **When to use:** Before EVERY commit, especially after long breaks or major changes.
 
-**🚨 CRITICAL RULE:** Never push until ALL checks from CHECKS (see [README](/README.md)) pass. Return to fix or ask for clarification.
+**🚨 CRITICAL RULE:** Never push until ALL checks pass. Return to fix or ask for clarification.
+
+**How it works:** Read README's 🤖 navigation block → Run checks → Update docs → Commit
 
 ---
 
@@ -50,58 +54,150 @@ flowchart TD
 
 ---
 
-## 📋 STEP 0: Read README for Status Files Location
+## 📋 STEP 0: Find Status Files in README
 
-**AI: README is the ONLY source of truth for file locations**
+**🤖 CRITICAL: README's navigation block is the ONLY source of truth**
 
-### Read README First
+**README's `> 🤖` block:**
+
+- ✅ **Source of truth** — Canonical list of all status file paths
+- ✅ **Must be distributed** — Copy to ALL status files (with adjusted relative paths)
+- ✅ **Read paths first** — Use these paths for all file operations
+
+### What to Look For
+
+**Every README.md must contain a navigation block starting and ending with `> 🤖`:**
+
+```markdown
+> 🤖
+>
+> - [README](./README.md) - Our project
+> - [CHANGELOG](path/to/CHANGELOG.md) — What we did
+> - [ROADMAP](path/to/ROADMAP.md) — What we wanna do
+> - [CONTRIBUTING](path/to/CONTRIBUTING.md) — How we do it
+> - [CHECKS](path/to/CHECKS.md) — What we accept
+> - [/whatsup](path/to/whatsup.prompt.md) — The prompt that keeps us sane
+>
+> 🤖
+```
+
+**This block contains ALL status file paths. Always read it first.**
+
+---
+
+### How to Extract Paths
 
 ```bash
 # Step 1: Read README.md
-cat README.md | head -30
+cat README.md
 
-# Step 2: Look for "Project Status Files" or "Status Files" section
-# Example output should show:
-# **Location:** /engine/docs/
-# - ROADMAP
-# - CHANGELOG
-# - CHECKS
+# Step 2: Look for lines between > 🤖 markers
+# Extract all paths from markdown links
+# Example: > - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+#          └─ Path is: ./engine/docs/CHANGELOG.md
 ```
 
-### Extract Location
+### Critical Rules for Navigation Block
 
-**What README MUST contain:**
+**🚨 AI: NEVER proceed without finding the 🤖 block first**
+
+✅ **DO:**
+
+- Read README.md completely
+- Find the `> 🤖` ... `> 🤖` section
+- Extract all file paths from markdown links
+- Use ONLY these paths for all operations
+- Copy this navigation block to ALL status files (with adjusted relative paths)
+
+❌ **DON'T:**
+
+- Edit README without explicit permission
+- Create custom navigation - always copy from README
+- Assume file locations (even common ones like `/docs/`)
+- Hardcode paths anywhere
+
+### Status Files are AI Prompts
+
+**Each status file is an instruction set for AI:**
+
+- **CHECKS.md** → Executable tests/validation (treat as test suite)
+- **CONTRIBUTING.md** → Workflow rules and conventions (treat as process spec)
+- **ROADMAP.md** → Planned features with epic format (treat as backlog)
+- **CHANGELOG.md** → Version history (treat as append-only log)
+
+**AI workflow:**
+
+1. Read README → Extract 🤖 paths
+2. **Read status files as prompts** → Follow their instructions
+3. Execute CHECKS → Validate stability
+4. Follow CONTRIBUTING → Apply workflow rules
+5. Update ROADMAP/CHANGELOG → Sync docs with reality
+
+---
+
+**If README doesn't have `> 🤖` navigation block:**
+
+1. ❌ **STOP:** Ask user "Where are your status files? (e.g., /docs/, /engine/docs/, root)"
+2. ✅ Create navigation block in README first
+3. ✅ Then proceed with whatsup workflow
+
+**Example extraction:**
 
 ```markdown
-**📋 Project Status Files:**
-**Location:** /path/to/files/
+From README:
 
-- ROADMAP - Planned features
-- CHANGELOG - Version history
-- CHECKS - Stability tests
+> - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+
+Extracted path:
+./engine/docs/CHANGELOG.md
+
+Use for:
+cat ./engine/docs/CHANGELOG.md
 ```
 
-**AI: Parse this to get file paths:**
+### Distributing the 🤖 Block
 
-```bash
-# Example for Personal Library:
-# Location: /engine/docs/
-# → ROADMAP is at: /engine/docs/ROADMAP.md
-# → CHANGELOG is at: /engine/docs/CHANGELOG.md
-# → CHECKS is at: /engine/docs/CHECKS.md
+**After reading README's 🤖 block, copy it to ALL status files:**
+
+```markdown
+# In README.md (source of truth):
+
+> 🤖
+>
+> - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+>   🤖
+
+# In engine/docs/CHANGELOG.md (adjusted paths):
+
+> 🤖
+>
+> - [CHANGELOG](CHANGELOG.md) — What we did ← relative to current file
+>   🤖
+
+# In engine/docs/ROADMAP.md (adjusted paths):
+
+> 🤖
+>
+> - [CHANGELOG](CHANGELOG.md) — What we did ← relative to current file
+>   🤖
 ```
 
-**If README doesn't specify location:**
+**Path adjustment rules:**
 
-- ❌ **STOP:** Ask user "Where are your status files? (e.g., /docs/, /engine/docs/, root)"
-- ✅ Update README to document location
-- ✅ Create from templates if needed (see end of this file)
+- Same directory → Use filename only: `CHANGELOG.md`
+- Parent directory → Use `../path`
+- Child directory → Use `subdir/file.md`
+- Keep description text identical across all files
 
 ---
 
 ## 📊 STEP 1: Compare Work vs Documentation
 
 **AI: What actually changed vs what's documented?**
+
+---
+
+> Note: This prompt orchestrates the workflow defined in the status files (CONTRIBUTING.md, ROADMAP.md, CHANGELOG.md, CHECKS.md). All workflow rules and epic/branch conventions live in CONTRIBUTING.md. If you see redundant or outdated workflow details here, update or remove them in favor of the status files as the single source of truth.
 
 ### 1A. Analyze Actual Changes
 
@@ -260,19 +356,33 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 
 **Location:** Check [README](/README.md) for status files location.
 
+**Epic Format:**
+
+> 🤖 **CRITICAL:** Always read epic format from [CONTRIBUTING.md](../.github/CONTRIBUTING.md#epic-format)
+> User may customize syntax - NEVER use hardcoded format
+
+**To write epics correctly:**
+
+1. Read CONTRIBUTING.md section "Epic Format"
+2. Find the `> 🤖 **AI: Use this syntax when writing epics` marker
+3. Use that exact syntax for all epic writes
+4. Respect status indicators (🚧 with link, ⏳ without link, ✅ completed)
+
 **If feature completed:**
 
 ```markdown
 # Before (in ROADMAP):
 
-## v0.3: Delta Indexing 🔶 (IN PROGRESS)
+> **v0.3**
+> [🚧](link) **Delta Indexing**
 
 - [x] Topic-partitioned storage
 - [ ] Automated change detection ← THIS WAS DONE
 
 # After (AI updates):
 
-## v0.3: Delta Indexing 🔶 (IN PROGRESS)
+> **v0.3**
+> [🚧](link) **Delta Indexing**
 
 - [x] Topic-partitioned storage
 - [x] Automated change detection ← MARKED COMPLETE
@@ -281,7 +391,7 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 **If version fully complete:**
 
 - Move entire section from ROADMAP to CHANGELOG (check [README](/README.md) for locations)
-- Update status: 🔶 (IN PROGRESS) → ✅ (COMPLETED)
+- Change status emoji: `🚧` → `✅`
 - Add completion date
 
 **🤖 CRITICAL: Add Navigation Menu to ALL Status Files**
@@ -312,6 +422,30 @@ Every status file (ROADMAP, CHANGELOG, CHECKS) must end with this navigation men
 ### 3B. Update CHANGELOG
 
 **Location:** Check [README](/README.md) for status files location.
+
+**🚨 CRITICAL RULE: CHANGELOG is append-only**
+
+- ✅ **ADD new entries at the top** (newest first)
+- ❌ **NEVER edit old entries** (history is immutable)
+- ✅ **If mistake in old entry:** Add clarification/correction as NEW entry
+- 📝 **Rename/refactor?** Document in NEW entry, keep old names in history
+
+**Why:** CHANGELOG is historical record of what actually happened at that time. If old entry says "query_partitioned.py", that's what existed then. Don't rewrite history.
+
+**Example - The RIGHT way:**
+
+```markdown
+## v0.5.0 - 2026-01-20 (NEW ENTRY - documents rename)
+
+### Renamed for Clarity
+
+- Scripts: query_partitioned.py → research.py (matches research.prompt.md)
+  ...
+
+## v0.3.0 - 2026-01-19 (OLD ENTRY - left unchanged)
+
+- Added: query_partitioned.py for CLI queries
+```
 
 **AI: Add new entry following project format:**
 
@@ -855,6 +989,20 @@ Run workflow (5 steps → 5 outcomes)
 
 ---
 
-**Last updated:** 2026-01-19
-**Version:** 4.0 (Fully agnostic, 3-level system, README-only discovery)
+---
+
+## Key Principles
+
+1. **🤖 Navigation block in README = Single source of truth** — Must be distributed to all status files
+2. **Status files = AI prompts** — CHECKS and CONTRIBUTING contain executable instructions
+3. **Read paths from 🤖 block** → Never assume file locations
+4. **5 possible outcomes** → Each triggers different actions
+5. **Checks must pass** before any commit
+6. **Documentation auto-syncs** with reality
+7. **Works on ANY project** → No hardcoded paths
+
+---
+
+**Last updated:** 2026-01-23
+**Version:** 4.1 (Emphasized 🤖 navigation block requirement)
 **Flagship example:** Personal Library MCP (Level 2 project)
