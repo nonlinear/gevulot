@@ -21,6 +21,8 @@ Gevulot development roadmap. Features move from here to CHANGELOG when complete.
 
 #### Development Environment
 
+[notes](v0-1-0.md)
+
 Set up project foundation: language choice, tooling, hello world, and research literature.
 
 - [ ] Choose tech stack (Flutter + Dart?)
@@ -34,6 +36,8 @@ Set up project foundation: language choice, tooling, hello world, and research l
 ### v0.1.1
 
 #### UX & Design Foundations
+
+[notes](v0-1-1.md)
 
 Define user flows and interaction patterns for consent-first contact management.
 
@@ -64,6 +68,8 @@ Establish how to test Gevulot safely without compromising privacy or breaking tr
 
 #### MVP - Core Contact Card
 
+[notes](v0-2-0.md)
+
 First working version with self-owned contact cards and basic propagation.
 
 - [ ] iOS app scaffold (Flutter)
@@ -91,6 +97,8 @@ Implement group-based visibility system.
 
 #### Automatic Propagation
 
+[notes](v0-4-0.md)
+
 Enable real-time updates when contact cards change.
 
 - [ ] Change detection system
@@ -104,6 +112,8 @@ Enable real-time updates when contact cards change.
 
 #### Multi-Platform Sync
 
+[notes](v0-5-0.md)
+
 Sync contacts across user's devices.
 
 - [ ] Cloud backend (Firebase/Supabase)
@@ -114,3 +124,9 @@ Sync contacts across user's devices.
 ---
 
 ## Future Ideas
+
+[notes](future.md)
+
+Potential features for consideration after v0.5.0.
+
+---

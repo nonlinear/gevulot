@@ -76,140 +76,6 @@ When moved to **Grey Rock**, some field visibility is revoked.
 
 Each field declares visibility rules (e.g., Phone → Family + Close Friends, Email → Work + Friends, Address → Family only). Permissions are declarative, enforced by the app, and part of the game rules.
 
-## Third-Party / Friend-of-Friend (Future)
-
-Potential feature: "Any friend of Nicholas can see X" with conservative defaults, opt-in only.
-
-## Cryptographic Consent (Optional)
-
-Future option: cryptographic signatures for permissions. Visibility becomes a signed capability with explicit consent trail.
-
-## iOS vs Android — Contact Permissions
-
-### Android
-
-Single permission (`READ_CONTACTS` / `WRITE_CONTACTS`) grants full read/edit/create access. Coarse-grained but powerful.
-
-### iOS
-
-More restrictive. Permissions are explicit and revocable. App must break if permissions are denied. Game rule: if you don't grant permissions, you can't play.
-
-## Accounts & Sync Reality
-
-Contacts may live in Google accounts. iOS aggregates sources. When permission is granted, app sees the unified address book. Google will observe changes—acceptable because the user already consented to Google. This system is about consent, not secrecy.
-
-## Identity Claiming
-
-Problem:
-
-- Multiple people may have multiple contacts representing "you"
-- No central authority today
-
-Constraints:
-
-- You do NOT want:
-  - Manual back-and-forth confirmations
-  - Asking permission per contact
-  - Zig-zag workflows
-
-Desired behavior:
-
-- System cleans this automatically
-
-Direction:
-
-- User claims identity once
-- App-level ID maps to multiple legacy contact entries
-- Over time:
-  - Duplicates collapse
-  - Canonical card dominates
-  - Old entries become inert or deprecated
-
-## Proof of Ownership
-
-When you claim your identity, you must prove ownership per device. This prevents identity hijacking and Sybil attacks.
-
-**Verification Methods:**
-
-1. **SMS Verification** (Primary)
-   - Claim phone number → receive SMS code
-   - Proves you control that number
-   - Standard in banking, Signal, WhatsApp
-
-2. **Email Verification** (Work Contacts)
-   - Claim email → receive verification link
-   - Domain verification for corporate emails
-   - Proves organizational affiliation
-
-3. **OAuth Providers** (Optional)
-   - Google/Apple/Microsoft sign-in
-   - Leverages existing trust anchor
-   - User consents to identity assertion
-
-4. **Device Binding**
-   - First claim on device creates binding
-   - Subsequent devices require re-verification
-   - Prevents mass account creation
-
-**Trust Model:**
-
-```mermaid
-flowchart TD
-    A[User Claims Identity] --> B{Verification Method}
-    B -->|SMS| C[Send Code to Phone]
-    B -->|Email| D[Send Link to Email]
-    B -->|OAuth| E[Redirect to Provider]
-    C --> F{Code Correct?}
-    D --> G{Link Clicked?}
-    E --> H{Provider Confirms?}
-    F -->|Yes| I[Create Stable User ID]
-    F -->|No| J[Retry or Fail]
-    G -->|Yes| I
-    G -->|No| J
-    H -->|Yes| I
-    H -->|No| J
-    I --> K[Bind to Device]
-    K --> L[User Can Edit Own Card]
-```
-
-**Security Properties:**
-
-- **One identity per phone/email**: Rate limiting prevents Sybil attacks
-- **Device fingerprinting**: Detects mass account creation from single device
-- **Temporal analysis**: Creating many accounts rapidly = suspicious
-- **TOFU (Trust On First Use)**: First claimer wins, subsequent claims require conflict resolution
-
-**Conflict Resolution:**
-
-If two people claim the same identity:
-
-1. Both receive notification
-2. Mutual contacts can "vote" for the real person
-3. Majority vote wins (weighted by social graph centrality)
-4. Loser can appeal or provide additional verification
-
-## Architecture: Centralized → Distributed
-
-**Initial:** Centralized backend for faster iteration and easier debugging.
-
-**Future:** Distributed social graph inspired by Secure Scuttlebutt. Encrypted payloads, everyone acts as relay, only intended recipients decrypt.
-
-## App Development Stack
-
-Cross-platform: React Native or Flutter. VS Code for development, Xcode for iOS builds/signing/TestFlight, Android Studio only for final packaging.
-
-## Distribution & Risk
-
-iOS requires Apple Developer Account, app review, TestFlight for beta.
-
-**Reality check:** App can delete or rewrite contacts. This is dangerous. Must be explicitly communicated as part of the game rules and accepted knowingly.
-
-## Social Incentive
-
-"I only exchange contacts with people who play this game"—similar to Signal-only communication or closed networks. Creates viral incentive, consent-based social pressure, and cleaner graphs over time.
-
----
-
 ## Open Questions / Future Work
 
 - Best UX for identity claiming without spam
@@ -217,3 +83,16 @@ iOS requires Apple Developer Account, app review, TestFlight for beta.
 - How to represent revocation cleanly
 - Migration path to decentralization
 - Legal framing: consent vs liability
+
+---
+
+> 🤖
+>
+> [CHANGELOG](docs/CHANGELOG.md) - What we did
+> [ROADMAP](docs/ROADMAP.md) - What we wanna do
+> [CONTRIBUTING](docs/CONTRIBUTING.md) - How we do it
+> [CHECKS](docs/CHECKS.md) - What we accept
+>
+> [/whatsup](.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+>
+> 🤖
